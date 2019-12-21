@@ -49,6 +49,7 @@ namespace ProAgil
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod());
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
