@@ -26,13 +26,20 @@ namespace ProAgil
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
+<<<<<<< Updated upstream
         {
             services.AddCors();
 
             services.AddDbContext<DataContext>(
+=======
+        {   
+            services.AddDbContext<ProAgilContext>(
+>>>>>>> Stashed changes
                 x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddScoped<IProAgilRepository, ProAgilRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
