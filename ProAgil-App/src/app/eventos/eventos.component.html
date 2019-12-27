@@ -11,7 +11,8 @@
   <thead class="thead-dark">
     <tr>      
       <th scope="col">
-        <button class="btn btn-outline-light" (click)="mostrarImagem()"> Mostrar Imagem</button>
+        <button class="btn btn-outline-light" (click)="mostrarImagem()">
+          <i class="{{mostrar ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i></button>
       </th>
       <th scope="col">#</th>
       <th scope="col">Tema</th>
@@ -26,16 +27,24 @@
     <tr *ngFor="let evento  of eventosFiltrados">
       <td>
         <div *ngIf="mostrar">
-          <img src="http://localhost:9000/img/{{evento.imagemURL}}" alt="{{ evento.tema }}"
-          [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem">
+          <img src="http://localhost:9000/img/{{evento.imagemURL}}"
+          alt="{{ evento.tema }}" [style.width.px]="imagemLargura" 
+          [style.margin.px]="imagemMargem">
         </div>        
       </td>
-      <td>{{ evento.eventoId }}</td>
+      <td>{{ evento.id }}</td>
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.dataEvento | DataFormat }}</td>
       <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.lote | uppercase }}</td>
+      <td>
+        <div *ngIf="!evento.lotes.length">
+          Não Informado
+        </div>
+        <div *ngIf="evento.lotes.length">
+          {{ evento.lotes[0].nome | uppercase }}
+        </div>
+      </td>
       <th>
         <button class="btn btn-success"></button>
         <button class="btn btn-danger"></button>

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProAgil.Repository
 {
+<<<<<<< HEAD
     interface IProAgilRepository
+=======
+    public interface IProAgilRepository
+>>>>>>> Angular
     {
         //Geral
         void Add<T>(T entity) where T : class;
@@ -17,7 +21,11 @@ namespace ProAgil.Repository
 
         //EVENTOS
         Task<Evento[]> GetAllEventoAsyncByTema(string tema, bool includePalestrantes);
+<<<<<<< HEAD
         Task<Evento[]> GetAllEventoAsync(bool includePalestrantes);
+=======
+        Task<Evento[]> GetAllPalestranteAsync(bool includePalestrantes);
+>>>>>>> Angular
         Task<Evento> GetEventoAsyncById(int EventoId, bool includePalestrantes);
 
         // PALESTRANSTE

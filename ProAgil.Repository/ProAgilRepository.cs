@@ -15,6 +15,10 @@ namespace ProAgil.Repository
         public ProAgilRepository(ProAgilContext context)
         {
             _context = context;
+<<<<<<< HEAD
+=======
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+>>>>>>> Angular
         }
 
         //GERAIS
@@ -37,7 +41,11 @@ namespace ProAgil.Repository
         } 
         
         //EVENTO
+<<<<<<< HEAD
         public async Task<Evento[]> GetAllEventoAsync(bool includePalestrantes = false)
+=======
+        public async Task<Evento[]> GetAllPalestranteAsync(bool includePalestrantes = false)
+>>>>>>> Angular
         {
             IQueryable<Evento> query = _context.Eventos
                 .Include(c => c.Lotes)
