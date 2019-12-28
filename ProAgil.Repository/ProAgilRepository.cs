@@ -15,10 +15,8 @@ namespace ProAgil.Repository
         public ProAgilRepository(ProAgilContext context)
         {
             _context = context;
-<<<<<<< HEAD
-=======
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
->>>>>>> Angular
+
         }
 
         //GERAIS
@@ -38,14 +36,10 @@ namespace ProAgil.Repository
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync()) > 0;
-        } 
+        }
         
         //EVENTO
-<<<<<<< HEAD
         public async Task<Evento[]> GetAllEventoAsync(bool includePalestrantes = false)
-=======
-        public async Task<Evento[]> GetAllPalestranteAsync(bool includePalestrantes = false)
->>>>>>> Angular
         {
             IQueryable<Evento> query = _context.Eventos
                 .Include(c => c.Lotes)
@@ -101,7 +95,7 @@ namespace ProAgil.Repository
         }
 
         //PALESTRANTE
-        public async Task<Palestrante> GetAllPalestranteAsync(int PalestranteId, bool includeEventos = false)
+        public async Task<Palestrante> GetPalestranteAsync(int PalestranteId, bool includeEventos = false)
         {
             IQueryable<Palestrante> query = _context.Palestrante
                 .Include(c => c.RedeSocials);
@@ -134,6 +128,7 @@ namespace ProAgil.Repository
             query = query.Where(c => c.Nome.ToLower().Contains(nome.ToLower()));
 
             return await query.ToArrayAsync();
-        } 
+        }
+        
     }
 }

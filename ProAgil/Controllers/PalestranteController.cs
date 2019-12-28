@@ -23,7 +23,7 @@ namespace ProAgil.Controllers
         {
             try
             {
-                var results = await _repo.GetAllPalestranteAsync(true);
+                var results = await _repo.GetAllEventoAsync(true);
 
                 return Ok(results);
             }

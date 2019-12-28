@@ -5,7 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+  <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Eventos</a>
@@ -15,6 +15,21 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" tabindex="-1">Contatos</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown" dropdown>
+        <div class="btn-group" dropdown>
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                  aria-controls="dropdown-basic">
+            Pablo<span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="navbarDropdownMenuLink">
+            <li role="menuitem"><a class="dropdown-item" href="#">Perfil</a></li>            
+            <li role="menuitem"><a class="dropdown-item" href="#">Sair</a></li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>
