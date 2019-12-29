@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -31,7 +31,8 @@ import { EventoService } from './_services/evento.service';
       ModalModule.forRoot(),
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      ReactiveFormsModule
    ],
    providers: [
       EventoService
