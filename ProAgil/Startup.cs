@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Cors;
 using ProAgil.Repository;
-
+using AutoMapper;
 
 namespace ProAgil
 {
@@ -30,6 +30,9 @@ namespace ProAgil
                 x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
+
+            services.AddAutoMapper();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
 
