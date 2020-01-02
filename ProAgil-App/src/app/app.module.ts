@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, ModalModule, TooltipModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // COMPONENTES
 import { NavComponent } from './nav/nav.component';
@@ -29,6 +30,7 @@ import { EventoService } from './_services/evento.service';
       BrowserModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      ToastrModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       AppRoutingModule,
