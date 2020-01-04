@@ -14,6 +14,8 @@ defineLocale('pt-br', ptBrLocale);
 })
 export class EventosComponent implements OnInit {
 
+  titulo = 'Eventos';
+
   eventosFiltrados: Evento[];
   eventos: Evento[] = [];
   evento: Evento;
@@ -48,18 +50,7 @@ export class EventosComponent implements OnInit {
   ngOnInit() {
     this.validation();
     this.getEventos();
-  }
-
-  getEventos() {
-    this.eventoService.getAllEvento().subscribe(
-      (_eventos: Evento[]) => {
-        this.eventos = _eventos;
-        this.eventosFiltrados = this.eventos;
-      }, err => {
-        console.log(err);
-      }
-    );
-  }
+  }  
 
   editarEvento(evento: Evento, template: any) {
     this.modoSalvar = 'put';
@@ -140,6 +131,17 @@ export class EventosComponent implements OnInit {
         this.getEventos();
         this.toastr.success('Deletado com sucesso!');
       }, error => this.toastr.error('Mensagem de Error', `Erro ao deletar o evento: ${error}`)
+    );
+  }
+  
+  getEventos() {
+    this.eventoService.getAllEvento().subscribe(
+      (_eventos: Evento[]) => {
+        this.eventos = _eventos;
+        this.eventosFiltrados = this.eventos;
+      }, err => {
+        this.toastr.error(`Error ao tentar carregar eventos: ${err}`);
+      }
     );
   }
 }

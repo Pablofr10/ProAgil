@@ -8,11 +8,18 @@ namespace ProAgil.Dtos
 {
     public class EventoDTO
     {
+        private string _dataEvento = "";
         public string Id { get; set; }
         [Required(ErrorMessage = "É obrigatório informar um local.")]
-        public string Local { get; set; }
+        public string Local { get; set; }      
 
-        public string DataEvento { get; set; }
+        public string DataEvento
+        {
+            get { return this._dataEvento; }
+            set { this._dataEvento = Convert.ToDateTime(value).ToString("yyyy/MM/dd hh:mm"); }
+        }
+
+
         [Required(ErrorMessage ="É obrigatório informar um tema.")]
         [StringLength(50, MinimumLength =3, ErrorMessage = "O tema deve ter no mínimo 3 caractéres e no máximo 8")]
         public string Tema { get; set; }

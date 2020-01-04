@@ -12,6 +12,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { NavComponent } from './nav/nav.component';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { PalestrantesComponent } from './palestrantes/palestrantes.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ContatosComponent } from './contatos/contatos.component';
+import { TituloComponent } from './_shared/titulo/titulo.component';
 
 // PIPES
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
@@ -24,6 +28,10 @@ import { EventoService } from './_services/evento.service';
       AppComponent,
       EventosComponent,
       NavComponent,
+      PalestrantesComponent,
+      DashboardComponent,
+      ContatosComponent,
+      TituloComponent,
       DateTimeFormatPipePipe
    ],
    imports: [
