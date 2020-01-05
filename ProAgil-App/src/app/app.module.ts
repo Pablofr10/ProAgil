@@ -7,6 +7,7 @@ import { BsDropdownModule, ModalModule, TooltipModule, BsDatepickerModule } from
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxLoadingModule } from 'ngx-loading';
 
 // COMPONENTES
 import { NavComponent } from './nav/nav.component';
@@ -41,6 +42,7 @@ import { EventoService } from './_services/evento.service';
       ToastrModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
+      NgxLoadingModule.forRoot({}),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
