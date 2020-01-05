@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\imagem0.jpg" />
-    <Content Include="Resources\Images\imagem1.jpg" />
-    <Content Include="Resources\Images\imagem2.jpg" />
-    <Content Include="Resources\Images\imagem3.jpg" />
-    <Content Include="Resources\Images\imagem4.jpg" />
-    <Content Include="Resources\Images\imagem5.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Model\" />
     <Folder Include="wwwroot\img\" />
