@@ -13,8 +13,9 @@
   </div>
 </div>
 
-<h3>Fltro: {{ filtroLista }}</h3>
+<h3>Filtro: {{ filtroLista }}</h3>
 <table class="table tabele-striped table-hover">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
   <thead class="thead-dark">
     <tr>
       <th scope="col">
@@ -35,7 +36,7 @@
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
         <div *ngIf="mostrar">
-          <img src="http://localhost:9000/img/{{ evento.imagemURL }}" alt="{{ evento.tema }}"
+        <img src="http://localhost:9000/resources/images/{{evento.imagemURL}}?_ts={{dataAtual}}" 
             [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem" />
         </div>
       </td>
@@ -170,11 +171,17 @@
             </div>
             <div class="form-group col-md-9">
               <label>Imagem</label>
-              <input type="text" class="form-control" [ngClass]="{
-                  'is-invalid':
-                    registerForm.get('imagemURL').errors &&
-                    registerForm.get('imagemURL').touched
-                }" formControlName="imagemURL" />
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success" (click)="file.click()">Enviar Imagem</button>
+              <input type="file" #file class="form-control" [ngClass]="{
+                  'is-invalid': registerForm.get('imagemURL').errors &&
+                    registerForm.get('imagemURL').touched }" (change)="onfileChange($event)"
+                    style="display: none;" formControlName="imagemURL" />
+                  </td>
+                </tr>
+              </table>              
               <div *ngIf="
                   registerForm.get('imagemURL').hasError('required') &&
                   registerForm.get('imagemURL').touched
