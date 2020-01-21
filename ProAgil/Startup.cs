@@ -52,8 +52,8 @@ namespace ProAgil
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
             builder.AddEntityFrameworkStores<ProAgilContext>();
             builder.AddRoleValidator<RoleValidator<Role>>();
-            builder.AddRoleManager<SignInManager<User>>();
-            builder.AddSignInManager<SignInManager<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
@@ -100,6 +100,8 @@ namespace ProAgil
             {
                 app.UseHsts();
             }
+
+            app.UseAuthentication();
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
