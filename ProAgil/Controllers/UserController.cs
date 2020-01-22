@@ -93,11 +93,11 @@ namespace ProAgil.Controllers
                     });
                 }
 
-                return Unauthorized();
+                return StatusCode(401, "Não autorizado");
             }
             catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"O Banco de dados falhou {ex.Message}");
+                return this.StatusCode(StatusCodes.Status401Unauthorized, $"O Banco de dados falhou {ex.Message}");
             }
         }
 
