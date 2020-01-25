@@ -19,19 +19,20 @@
     </ul>    
   </div>
   <ul class="navbar-nav">
-    <li class="nav-item dropdown" dropdown>
+    <li *ngIf="LoggedIn()" class="nav-item dropdown" dropdown>
       <div class="btn-group" dropdown>
         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                 aria-controls="dropdown-basic">
-          Pablo<span class="caret"></span>
+          {{ authService.decodedToken?.unique_name }}<span class="caret"></span>
         </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="navbarDropdownMenuLink">
-          <li role="menuitem"><a class="dropdown-item" href="#">Perfil</a></li>            
-          <li role="menuitem"><a class="dropdown-item" href="#">Sair</a></li>
+          <li role="menuitem"><a class="dropdown-item">Perfil</a></li>            
+          <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Sair</a></li>
         </ul>
       </div>
     </li>
+    <button *ngIf="!LoggedIn()" (click)="login()" class="btn btn-success">Entrar</button>
   </ul>
 </div>
 </nav>

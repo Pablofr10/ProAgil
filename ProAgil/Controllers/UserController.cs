@@ -88,12 +88,12 @@ namespace ProAgil.Controllers
                     var userToReturn = _mapper.Map<UserLoginDTO>(appUser);
 
                     return Ok(new {
-                        token = GenerateJWToken(appUser).Result,
+                        token = GenerateJwtToken(appUser).Result,
                         user = userToReturn
                     });
                 }
 
-                return StatusCode(401, "Não autorizado");
+                return Unauthorized();
             }
             catch (System.Exception ex)
             {
@@ -101,26 +101,21 @@ namespace ProAgil.Controllers
             }
         }
 
-        private async Task<string> GenerateJWToken(User user)
+        private async Task<string> GenerateJwtToken(User user)
         {
-            var claims = new List<Claim>
-            {
+            var claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 
             var roles = await _userManager.GetRolesAsync(user);
-
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(_config.GetSection("AppSetings:Token").Value));
-
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -129,9 +124,7 @@ namespace ProAgil.Controllers
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             return tokenHandler.WriteToken(token);
         }
     }

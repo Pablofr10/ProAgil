@@ -62,7 +62,7 @@ namespace ProAgil
                         {
                             ValidateIssuerSigningKey = true,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(Configuration.GetSection("AppSetings:Token").Value)),
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                             ValidateIssuer = false,
                             ValidateAudience = false
                         };
@@ -80,11 +80,10 @@ namespace ProAgil
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
                                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-
-            services.AddCors();
+            
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
             services.AddAutoMapper();
+            services.AddCors();
 
 
         }
@@ -105,6 +104,9 @@ namespace ProAgil
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            //app.UseCors(builder =>
+            app.UseStaticFiles();
             app.UseStaticFiles( new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),

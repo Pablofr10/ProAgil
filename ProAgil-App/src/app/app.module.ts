@@ -1,7 +1,8 @@
+import { AuthInterceptor } from './auth/auth.interceptor';
 // MODULOS
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, ModalModule, TooltipModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +46,11 @@ import { UserComponent } from './user/user.component';
       BrowserModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
-      ToastrModule.forRoot(),
+      ToastrModule.forRoot({
+         timeOut: 3000,
+         preventDuplicates: true,
+         progressBar: true
+      }),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       NgxLoadingModule.forRoot({}),
@@ -56,7 +61,12 @@ import { UserComponent } from './user/user.component';
       BrowserAnimationsModule
    ],
    providers: [
-      EventoService
+      EventoService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: AuthInterceptor,
+         multi: true
+      }
    ],
    bootstrap: [
       AppComponent
