@@ -4,16 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, ModalModule, TooltipModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, ModalModule, TooltipModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
+import { NgxMaskModule } from 'ngx-mask';
 
 // COMPONENTES
 import { NavComponent } from './nav/nav.component';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContatosComponent } from './contatos/contatos.component';
@@ -32,6 +34,7 @@ import { UserComponent } from './user/user.component';
    declarations: [
       AppComponent,
       EventosComponent,
+      EventoEditComponent,
       NavComponent,
       PalestrantesComponent,
       DashboardComponent,
@@ -51,6 +54,7 @@ import { UserComponent } from './user/user.component';
          preventDuplicates: true,
          progressBar: true
       }),
+      TabsModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       NgxLoadingModule.forRoot({}),
@@ -58,7 +62,8 @@ import { UserComponent } from './user/user.component';
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      NgxMaskModule.forRoot()
    ],
    providers: [
       EventoService,

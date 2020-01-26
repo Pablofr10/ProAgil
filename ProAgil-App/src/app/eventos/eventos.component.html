@@ -29,7 +29,7 @@
       <th scope="col">Data</th>
       <th scope="col">Vagas</th>
       <th scope="col">Lote</th>
-      <th scope="col">Opções</th>
+      <th colspan="2" class="text-center">Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
@@ -62,6 +62,11 @@
             <i class="fa fa-eraser"></i>
           </button>
         </div>
+      </th>
+      <th>
+        <a [routerLink]="['/evento', 'editar', evento.id]" tooltip="Edição Detalhada" class="btn btn-sm btn-warning">
+          <i class="fa fa-edit"></i>
+        </a>
       </th>
     </tr>
   </tbody>
@@ -133,7 +138,7 @@
             <div class="form-group col-md-4">
               <label>Data e Hora</label>
               <input type="text" class="form-control" bsDatepicker
-              value="{{dataEvento | DateTimeFormatPipePipe}}"
+              value="{{ dataEvento | DateTimeFormatPipePipe }}"
                 [(ngModel)]="dataEvento"
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm A' }" 
                 [ngClass]="{ 'is-invalid':
