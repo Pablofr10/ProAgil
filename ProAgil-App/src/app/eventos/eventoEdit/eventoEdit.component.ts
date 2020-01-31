@@ -44,22 +44,20 @@ export class EventoEditComponent implements OnInit {
     });
 }
 
-  criarLote(lote: any): FormGroup {
+  criarLote(): FormGroup {
     return this.fb.group({
-      id: [lote.id],
-      nome: [lote.nome, Validators.required],
-      quantidade: [lote.quantidade, Validators.required],
-      preco: [lote.preco, Validators.required],
-      dataInicio: [lote.dataInicio],
-      dataFim: [lote.dataFim]
+      nome: ['', Validators.required],
+      quantidade: ['', Validators.required],
+      preco: ['', Validators.required],
+      dataInicio: [''],
+      dataFim: ['']
     });
   }
 
-  criaRedeSocial(redeSocial: any): FormGroup {
+  criaRedeSocial(): FormGroup {
     return this.fb.group({
-      id: [redeSocial.id],
-      nome: [redeSocial.nome, Validators.required],
-      url: [redeSocial.url, Validators.required],
+      nome: ['', Validators.required],
+      url: ['', Validators.required],
     });
   }
 
