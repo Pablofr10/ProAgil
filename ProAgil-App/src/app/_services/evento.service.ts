@@ -20,8 +20,8 @@ constructor(private http: HttpClient) {}
     return this.http.get<Evento[]>(`${this.baseUrl}/getByTema/${tema}`);
   }
 
-  getEventoById(id: number): Observable<Evento> {
-    return this.http.get<Evento>(`${this.baseUrl}/${id}`);
+  getEventoById(id: number): Observable<Evento[]> {
+    return this.http.get<Evento[]>(`${this.baseUrl}/getById/${id}`);
   }
 
   postUpload(file: File, name: string) {
