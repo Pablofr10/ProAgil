@@ -37,7 +37,7 @@
             <div class="form-group col-md-4">
               <label>Data e Hora</label>
               <input type="text" class="form-control" [(ngModel)]="evento.dataEvento" bsDatepicker
-                value="{{dataEvento | DateTimeFormatPipePipe }}" [(ngModel)]="dataEvento"
+                value="{{ dataEvento | DateTimeFormatPipePipe }}" [(ngModel)]="dataEvento"
                 [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY hh:mm' }" [ngClass]="{'is-invalid': registerForm.get('dataEvento').errors 
             && registerForm.get('dataEvento').touched}" formControlName="dataEvento" placeholder="">
               <div *ngIf="registerForm.get('dataEvento').hasError('required')
@@ -91,29 +91,39 @@
             <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
               <fieldset [formGroupName]="i" class="form-group">
                 <legend class="d-flex justify-content-between capitalize">
-                  {{'Lotes'}}
+                  {{ lotes.get(i+'.nome').value === '' ?
+                      'Lotes' : lotes.get(i+'.nome').value
+                  }}
                   <button (click)="removerLote(i)" class="btn btn-sm btn-warning mb-1">remove</button>
                 </legend>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label>Nome</label>
-                    <input type="text" class="form-control" formControlName="nome" placeholder="Lote">
+                    <input type="text" class="form-control" 
+                    [ngClass]="{'is-invalid': lotes.get(i+'.nome').errors && lotes.get(i+'.nome').touched}" 
+                    formControlName="nome" placeholder="Lote">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Quantidade</label>
-                    <input type="text" class="form-control" formControlName="quantidade" placeholder="000">
+                    <input type="text" class="form-control"
+                    [ngClass]="{'is-invalid': lotes.get(i+'.quantidade').errors && lotes.get(i+'.quantidade').touched}" 
+                    formControlName="quantidade" placeholder="000">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Preço</label>
-                    <input type="text" class="form-control" formControlName="preco" placeholder="R$ 0,00">
+                    <input type="text" class="form-control"
+                    [ngClass]="{'is-invalid': lotes.get(i+'.preco').errors && lotes.get(i+'.preco').touched}" 
+                    formControlName="preco" placeholder="R$ 0,00">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Data Início</label>
-                    <input type="text" class="form-control" formControlName="dataInicio" placeholder="01/01/2019">
+                    <input type="text" class="form-control"
+                    formControlName="dataInicio" placeholder="01/01/2019">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Data Fim</label>
-                    <input type="text" class="form-control" formControlName="dataFim" placeholder="01/01/2019">
+                    <input type="text" class="form-control"
+                    formControlName="dataFim" placeholder="01/01/2019">
                   </div>                  
                 </div>
               </fieldset>
@@ -127,13 +137,17 @@
           <div formArrayName="redesSociais" *ngFor="let redeSocial of redesSociais.controls; let i=index">
             <fieldset [formGroupName]="i" class="form-group">
               <legend class="d-flex justify-content-between capitalize">
+                {{ redesSociais.get(i+'.nome').value === '' ?
+                      'RedesSociais' : redesSociais.get(i+'.nome').value?.replace('fab fa-', '')
+                  }}
                 <button (click)="removerRedeSocial(i)" class="btn btn-sm btn-warning mb-1"
                   >remove</button>
               </legend>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Nome</label>
-                  <select class="form-control" formControlName="nome">
+                  <select class="form-control" formControlName="nome"
+                          [ngClass]="{'is-invalid': redesSociais.get(i+'.nome').errors && redesSociais.get(i+'.nome').touched}" >
                     <option value="">Selecione</option>
                     <option value="fab fa-youtube">Youtube</option>
                     <option value="fab fa-instagram">Instagram</option>
@@ -150,7 +164,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label>Link</label>
-                  <input type="text" formControlName="url" class="form-control" placeholder="URL">
+                  <input type="text" formControlName="url" class="form-control" placeholder="URL"
+                  [ngClass]="{'is-invalid': redesSociais.get(i+'.url').errors && redesSociais.get(i+'.url').touched}">
                 </div>
               </div>
             </fieldset>

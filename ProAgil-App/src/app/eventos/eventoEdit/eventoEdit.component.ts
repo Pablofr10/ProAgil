@@ -53,7 +53,7 @@ export class EventoEditComponent implements OnInit {
         this.imagemURL = `http://localhost:9000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
         this.registerForm.patchValue(this.evento);
 
-        this.evento.lotes.forEach(lotes => {
+        this.evento.lotes.forEach(lote => {
           this.lotes.push(this.criarLote(lote));
         });
         this.evento.redesSocials.forEach(redeSocial => {
@@ -64,6 +64,7 @@ export class EventoEditComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
+      id: [],
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
