@@ -140,13 +140,36 @@ namespace ProAgil.Controllers
                 var evento = await _repo.GetEventoAsyncById(EventoId, false);
                 if (evento == null) return NotFound();
 
+                var idLotes = new List<int>();
+                var idRedesSociais = new List<int>();
+
+                foreach (var item in model.Lotes)
+                    idLotes.Add(item.Id);
+
+                foreach (var item in model.RedeSociais)
+                    idRedesSociais.Add(item.Id);
+
+                var lotes = evento.Lotes.Where(
+                    lote => !idLotes.Contains(lote.Id))
+                    .ToArray();
+
+                var redesSociais = evento.RedeSociais.Where(
+                    redeSocial => !idRedesSociais.Contains(redeSocial.Id))
+                    .ToArray();
+
+
+                if (lotes.Length > 0) _repo.DeleteRange(lotes);
+                
+                if (redesSociais.Length > 0) _repo.DeleteRange(redesSociais);
+
+
                 _mapper.Map(model, evento);
 
                 _repo.Update(evento);
 
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/evento/{model.Id}", _mapper.Map<Evento>(evento));
+                    return Created($"/site/evento/{model.Id}", _mapper.Map<Evento>(evento));
                 }
             }
             catch (System.Exception ex)

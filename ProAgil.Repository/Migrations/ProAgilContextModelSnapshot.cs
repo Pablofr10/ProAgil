@@ -358,11 +358,11 @@ namespace ProAgil.Repository.Migrations
             modelBuilder.Entity("ProAgil.Domain.RedeSocial", b =>
                 {
                     b.HasOne("ProAgil.Domain.Evento")
-                        .WithMany("RedeSocials")
+                        .WithMany("RedeSociais")
                         .HasForeignKey("EventoId");
 
                     b.HasOne("ProAgil.Domain.Palestrante")
-                        .WithMany("RedeSocials")
+                        .WithMany("RedeSociais")
                         .HasForeignKey("PalestranteId");
                 });
 #pragma warning restore 612, 618

@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 // COMPONENTES
 import { NavComponent } from './nav/nav.component';
@@ -43,7 +44,7 @@ import { UserComponent } from './user/user.component';
       UserComponent,
       RegistrationComponent,
       LoginComponent,
-      DateTimeFormatPipePipe,
+      DateTimeFormatPipePipe      
    ],
    imports: [
       BrowserModule,
@@ -63,7 +64,8 @@ import { UserComponent } from './user/user.component';
       FormsModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
-      NgxMaskModule.forRoot()
+      NgxMaskModule.forRoot(),
+      NgxCurrencyModule
    ],
    providers: [
       EventoService,

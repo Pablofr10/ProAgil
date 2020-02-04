@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventoService } from 'src/app/_services/evento.service';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -18,25 +18,26 @@ export class EventoEditComponent implements OnInit {
   imagemURL = 'assets/img/upload.png';
   registerForm: FormGroup;
   file: File;
-  fileNameToUpload: string;
-  dataAtual;
+  fileNameToUpdate: string;
 
-  get lotes(): FormArray{
-    return <FormArray> this.registerForm.get('lotes');
+  dataAtual = '';
+
+  get lotes(): FormArray {
+    return <FormArray>this.registerForm.get('lotes');
   }
 
-  get redesSociais(): FormArray{
-    return <FormArray> this.registerForm.get('redesSociais');
+  get redeSociais(): FormArray {
+    return <FormArray>this.registerForm.get('redeSociais');
   }
 
   constructor(
-    private eventoService: EventoService,
-    private fb: FormBuilder,
-    private localService: BsLocaleService,
-    private toastr: ToastrService,
-    private router: ActivatedRoute
+    private eventoService: EventoService
+    , private fb: FormBuilder
+    , private localeService: BsLocaleService
+    , private toastr: ToastrService
+    , private router: ActivatedRoute
   ) {
-    this.localService.use('pt-br');
+    this.localeService.use('pt-br');
   }
 
   ngOnInit() {
@@ -46,20 +47,25 @@ export class EventoEditComponent implements OnInit {
 
   carregarEvento() {
     const idEvento = +this.router.snapshot.paramMap.get('id');
-    this.eventoService.getEventoById(idEvento).subscribe(
-      (evento: Evento) => {
-        this.evento = Object.assign({}, evento);
-        this.fileNameToUpload = evento.imagemURL.toString();
-        this.imagemURL = `http://localhost:9000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
-        this.registerForm.patchValue(this.evento);
+    this.eventoService.getEventoById(idEvento)
+      .subscribe(
+        (evento: Evento) => {
+          this.evento = Object.assign({}, evento);
+          this.fileNameToUpdate = evento.imagemURL.toString();
 
-        this.evento.lotes.forEach(lote => {
-          this.lotes.push(this.criarLote(lote));
-        });
-        this.evento.redesSocials.forEach(redeSocial => {
-          this.redesSociais.push(this.criaRedeSocial(redeSocial))
-        });
-      });
+          this.imagemURL = `http://localhost:9000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+
+          this.evento.imagemURL = '';
+          this.registerForm.patchValue(this.evento);
+
+          this.evento.lotes.forEach(lote => {
+            this.lotes.push(this.criaLote(lote));
+          });
+          this.evento.redeSociais.forEach(redeSocial => {
+            this.redeSociais.push(this.criaRedeSocial(redeSocial));
+          });
+        }
+      );
   }
 
   validation() {
@@ -68,16 +74,16 @@ export class EventoEditComponent implements OnInit {
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
-      qtdPessoas: ['', [Validators.required, Validators.max(12000)]],
       imagemURL: [''],
+      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       lotes: this.fb.array([]),
-      redesSociais: this.fb.array([])
+      redeSociais: this.fb.array([])
     });
-}
+  }
 
-  criarLote(lote: any): FormGroup {
+  criaLote(lote: any): FormGroup {
     return this.fb.group({
       id: [lote.id],
       nome: [lote.nome, Validators.required],
@@ -92,32 +98,60 @@ export class EventoEditComponent implements OnInit {
     return this.fb.group({
       id: [redeSocial.id],
       nome: [redeSocial.nome, Validators.required],
-      url: [redeSocial.url, Validators.required],
+      url: [redeSocial.url, Validators.required]
     });
   }
 
-  adicionarLote(){
-    this.lotes.push(this.criarLote({id: 0}));
+  adicionarLote() {
+    this.lotes.push(this.criaLote({ id: 0 }));
   }
 
-  adicionarRedeSocial(){
-    this.redesSociais.push(this.criaRedeSocial({id: 0}));
+  adicionarRedeSocial() {
+    this.redeSociais.push(this.criaRedeSocial({ id: 0 }));
   }
 
-  removerLote(id: number){
+  removerLote(id: number) {
     this.lotes.removeAt(id);
   }
 
-  removerRedeSocial(id: number){
-    this.lotes.removeAt(id);
+  removerRedeSocial(id: number) {
+    this.redeSociais.removeAt(id);
   }
 
-  onFileChange(file: FileList) {
+  onFileChange(evento: any, file: FileList) {
     const reader = new FileReader();
+
     reader.onload = (event: any) => this.imagemURL = event.target.result;
 
+    this.file = evento.target.files;
     reader.readAsDataURL(file[0]);
   }
 
+  salvarEvento() {
+    this.evento = Object.assign({ id: this.evento.id }, this.registerForm.value);
+    this.evento.imagemURL = this.fileNameToUpdate;
+
+    this.uploadImagem();
+
+    this.eventoService.putEvento(this.evento).subscribe(
+      () => {
+        this.toastr.success('Editado com Sucesso!');
+      }, error => {
+        this.toastr.error(`Erro ao Editar: ${error}`);
+      }
+    );
+  }
+
+  uploadImagem() {
+    if (this.registerForm.get('imagemURL').value !== '') {
+      this.eventoService.postUpload(this.file, this.fileNameToUpdate)
+        .subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.imagemURL = `http://localhost:9000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+          }
+        );
+    }
+  }
 
 }

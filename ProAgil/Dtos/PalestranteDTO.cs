@@ -12,7 +12,7 @@ namespace ProAgil.Dtos
         public string ImagemURL { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public List<RedeSocialDTO> RedeSocials { get; set; }
+        public List<RedeSocialDTO> redesSociais { get; set; }
         public List<EventoDTO> Eventos { get; set; }
     }
 }

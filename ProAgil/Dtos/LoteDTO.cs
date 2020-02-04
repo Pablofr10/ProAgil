@@ -8,6 +8,7 @@ namespace ProAgil.Dtos
 {
     public class LoteDTO
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Preco { get; set; }

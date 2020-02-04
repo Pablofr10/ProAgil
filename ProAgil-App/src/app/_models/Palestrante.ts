@@ -8,6 +8,6 @@ export interface Palestrante {
     imagemURL: string;
     telefone: string ;
     email: string ;
-    redeSocials: RedeSocial[];
+    RedeSociais: RedeSocial[];
     palestranteEvento: Evento[];
 }

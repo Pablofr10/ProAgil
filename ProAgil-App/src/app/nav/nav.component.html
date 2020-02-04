@@ -23,7 +23,7 @@
       <div class="btn-group" dropdown>
         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                 aria-controls="dropdown-basic">
-          {{ authService.decodedToken?.unique_name }}<span class="caret"></span>
+          {{ userName() }}<span class="caret"></span>
         </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="navbarDropdownMenuLink">

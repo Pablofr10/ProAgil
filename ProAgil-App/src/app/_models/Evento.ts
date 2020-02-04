@@ -7,7 +7,7 @@ export class Evento {
     constructor() { }
 
     id: number;
-    local: string ;
+    local: string;
     dataEvento: Date;
     tema: string;
     qtdPessoas: number;
@@ -15,6 +15,6 @@ export class Evento {
     telefone: string;
     email: string;
     lotes: Lote[];
-    redesSocials: RedeSocial[];
-    palestranteEventos: Palestrante[];
+    redeSociais: RedeSocial[];
+    palestrantesEventos: Palestrante[];
 }
